@@ -109,7 +109,6 @@
             background: var(--color-border);
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
         }
 
         /* Column Headers */
@@ -237,17 +236,38 @@
             background-size: contain;
         }
 
+        /* Scroll wrapper for mobile */
+        .grid-wrapper {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Hide scrollbar but keep functionality */
+        .grid-wrapper::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .grid-wrapper::-webkit-scrollbar-track {
+            background: var(--color-surface);
+            border-radius: 4px;
+        }
+
+        .grid-wrapper::-webkit-scrollbar-thumb {
+            background: var(--color-accent);
+            border-radius: 4px;
+        }
+
         /* Responsive */
         @media (max-width: 1200px) {
             .curriculum-grid {
-                grid-template-columns: repeat(4, 1fr);
+                grid-template-columns: repeat(7, minmax(180px, 1fr));
+                min-width: max-content;
             }
-            
-            .column-header:nth-child(n+5),
-            .cell:nth-child(7n+5),
-            .cell:nth-child(7n+6),
-            .cell:nth-child(7n) {
-                display: none;
+
+            .cell {
+                min-width: 180px;
             }
         }
 
@@ -257,21 +277,48 @@
             }
 
             .curriculum-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .column-header:nth-child(n+3),
-            .cell:nth-child(7n+3),
-            .cell:nth-child(7n+4),
-            .cell:nth-child(7n+5),
-            .cell:nth-child(7n+6),
-            .cell:nth-child(7n) {
-                display: none;
+                grid-template-columns: repeat(7, minmax(160px, 1fr));
             }
 
             .cell {
                 min-height: 120px;
+                min-width: 160px;
                 padding: 1rem;
+            }
+
+            .column-header {
+                min-width: 160px;
+                padding: 1rem 0.75rem;
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Scroll hint for mobile */
+        .scroll-hint {
+            display: none;
+            text-align: center;
+            color: var(--color-text-muted);
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+            gap: 0.5rem;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .scroll-hint svg {
+            width: 20px;
+            height: 20px;
+            animation: swipe 1.5s ease-in-out infinite;
+        }
+
+        @keyframes swipe {
+            0%, 100% { transform: translateX(-5px); opacity: 0.5; }
+            50% { transform: translateX(5px); opacity: 1; }
+        }
+
+        @media (max-width: 1200px) {
+            .scroll-hint {
+                display: flex;
             }
         }
 
@@ -322,6 +369,14 @@
             <p class="subtitle">Baden-Württemberg · Übersicht nach Klassenstufen</p>
         </header>
 
+        <div class="scroll-hint">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+            </svg>
+            <span>Wischen um mehr zu sehen</span>
+        </div>
+
+        <div class="grid-wrapper">
         <div class="curriculum-grid">
             <!-- Headers -->
             <div class="column-header klasse5">Klasse 5</div>
@@ -333,11 +388,11 @@
             <div class="column-header oberstufe">Oberstufe</div>
 
             <!-- Row 1 -->
-            <div class="cell row-1 has-pdf" data-pdf="Kl5_Ritter Sachtexte" onclick="openPdf(this)">
+            <div class="cell row-1" data-pdf="pdfs/klasse5-dunkles-ma.pdf" onclick="openPdf(this)">
                 <div class="cell-title">Dunkles MA, finstere Ritter</div>
                 <div class="cell-content">Sachtexte unterschiedlicher medialer Form untersuchen</div>
             </div>
-            <div class="cell row-1 has-pdf" data-pdf="PDFs/Kl6_Fabeln.pdf" onclick="openPdf(this)">
+            <div class="cell row-1" data-pdf="pdfs/klasse6-fabeln.pdf" onclick="openPdf(this)">
                 <div class="cell-title">Fabeln</div>
                 <div class="cell-content">lesen und gestalten</div>
             </div>
@@ -345,7 +400,7 @@
                 <div class="cell-title">Jugendliteratur – Charakterisierung</div>
                 <div class="cell-content">Schwerpunkt Prosa, Protagonist (z.B. <em>Parzival</em> o. <em>Iwein Löwenritter</em>)</div>
             </div>
-            <div class="cell row-1 has-pdf" data-pdf="PDFs/Kl8_Lyrik Ents.pdf" onclick="openPdf(this)">
+            <div class="cell row-1" data-pdf="pdfs/klasse8-lyrik.pdf" onclick="openPdf(this)">
                 <div class="cell-title">Lyrik</div>
                 <div class="cell-content"><em>Waldgedichte</em>, u.a. <em>Herr der Ringe</em> (Ents)</div>
             </div>
@@ -353,21 +408,21 @@
                 <div class="cell-title">Zeitung</div>
                 <div class="cell-content">Medienwandel/-verhalten</div>
             </div>
-            <div class="cell row-1 has-pdf" data-pdf="PDFs/Kl_10 Der Medicus-Film.pdf" onclick="openPdf(this)">
+            <div class="cell row-1" data-pdf="pdfs/klasse10-literaturverfilmung.pdf" onclick="openPdf(this)">
                 <div class="cell-title">Literaturverfilmung</div>
                 <div class="cell-content">Vergleich, Gestaltungsmittel, Darstellungsleistung</div>
             </div>
-            <div class="cell row-1 has-pdf" data-pdf="PDFs/OS_Sprache.pdf.pdf" onclick="openPdf(this)">
+            <div class="cell row-1" data-pdf="pdfs/oberstufe-macht-der-sprache.pdf" onclick="openPdf(this)">
                 <div class="cell-title">Macht der Sprache</div>
                 <div class="cell-content">Sprachwandel, Lehnwörter</div>
             </div>
 
             <!-- Row 2 -->
-            <div class="cell row-2 has-pdf" data-pdf="PDFs/Kl5_Märchen, Zaubersprüche.pdf" onclick="openPdf(this)">
+            <div class="cell row-2 has-pdf" data-pdf="pdfs/klasse5-maerchentexte.pdf" onclick="openPdf(this)">
                 <div class="cell-title">Märchentexte</div>
                 <div class="cell-content">untersuchen & Märchen schreiben (u.a. ahd. <em>Beschwörungsformeln</em>)</div>
             </div>
-            <div class="cell row-2 has-pdf" data-pdf="PDFs/Kl6_Heldensagen.pdf" onclick="openPdf(this)">
+            <div class="cell row-2" data-pdf="pdfs/klasse6-volkssagen.pdf" onclick="openPdf(this)">
                 <div class="cell-title">Volks- und Heldensagen</div>
                 <div class="cell-content">szenisches Erschließen, Vorstellung Helden früher/heute</div>
             </div>
@@ -379,7 +434,7 @@
                 <div class="cell-title">UE Mittelalter</div>
                 <div class="cell-content">Miniaturen, Vorstellungen vs. Vorwissen, Medien MA, Nibelungenlied, Reflexion & Rezeption</div>
             </div>
-            <div class="cell row-2 has-pdf" data-pdf="PDFs/Kl9_Minnelyrik.pdf" onclick="openPdf(this)">
+            <div class="cell row-2" data-pdf="pdfs/klasse9-barock.pdf" onclick="openPdf(this)">
                 <div class="cell-title">Barock</div>
                 <div class="cell-content">Liebeslyrik, Flugblatt, aspektorientierter Vergleich, Epochenmodell</div>
             </div>
@@ -395,7 +450,7 @@
                 <div class="cell-content">mediale Zugänge (auch <em>Fantasy</em>)</div>
             </div>
             <div class="cell row-3 empty"></div>
-            <div class="cell row-3 has-pdf" data-pdf="PDFs/Kl7_Engelhard.pdf" onclick="openPdf(this)">
+            <div class="cell row-3" data-pdf="pdfs/klasse7-hoerprodukte.pdf" onclick="openPdf(this)">
                 <div class="cell-title">Zuhören</div>
                 <div class="cell-content">Hörprodukte gestalten (Bsp. <em>Engelhard</em>)</div>
             </div>
@@ -405,10 +460,11 @@
             </div>
             <div class="cell row-3 empty"></div>
             <div class="cell row-3 empty"></div>
-            <div class="cell row-3 has-pdf" data-pdf="PDFs/OS_Lyrik diachron.pdf.pdf" onclick="openPdf(this)">
+            <div class="cell row-3" data-pdf="pdfs/oberstufe-lyrik-diachron.pdf" onclick="openPdf(this)">
                 <div class="cell-title">Lyrik diachron</div>
                 <div class="cell-content">(z.B. Liebeslyrik)</div>
             </div>
+        </div>
         </div>
 
         <div class="legend">
