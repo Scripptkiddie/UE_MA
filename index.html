@@ -17,13 +17,6 @@
             --color-text-muted: #888;
             --color-accent: #c9a227;
             --color-accent-glow: rgba(201, 162, 39, 0.3);
-            --color-klasse5: #2d4a3e;
-            --color-klasse6: #3d2d4a;
-            --color-klasse7: #4a2d2d;
-            --color-klasse8: #2d3d4a;
-            --color-klasse9: #4a3d2d;
-            --color-klasse10: #2d4a4a;
-            --color-oberstufe: #3d4a2d;
             --font-display: 'Crimson Pro', Georgia, serif;
             --font-body: 'DM Sans', system-ui, sans-serif;
         }
@@ -42,7 +35,6 @@
             line-height: 1.6;
         }
 
-        /* Decorative background */
         body::before {
             content: '';
             position: fixed;
@@ -58,16 +50,16 @@
         }
 
         .container {
-            max-width: 1600px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 2rem;
+            padding: 1.5rem;
         }
 
         /* Header */
         header {
             text-align: center;
-            margin-bottom: 3rem;
-            padding: 2rem 0;
+            margin-bottom: 2rem;
+            padding: 1.5rem 0;
             position: relative;
         }
 
@@ -84,7 +76,7 @@
 
         h1 {
             font-family: var(--font-display);
-            font-size: clamp(1.8rem, 4vw, 3rem);
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
             font-weight: 600;
             color: var(--color-text);
             letter-spacing: 0.02em;
@@ -96,114 +88,124 @@
         }
 
         .subtitle {
-            font-size: 1rem;
+            font-size: 0.9rem;
             color: var(--color-text-muted);
             font-weight: 400;
         }
 
-        /* Grid Layout */
-        .curriculum-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 1px;
-            background: var(--color-border);
-            border-radius: 12px;
-            overflow: hidden;
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 1.5rem;
         }
 
-        /* Column Headers */
-        .column-header {
+        .tab {
             background: var(--color-surface);
-            padding: 1.25rem 1rem;
-            text-align: center;
-            font-weight: 600;
-            font-size: 0.95rem;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            border-bottom: 2px solid var(--color-accent);
-            position: relative;
+            border: 1px solid var(--color-border);
+            color: var(--color-text-muted);
+            padding: 0.75rem 1.25rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
         }
 
-        .column-header.klasse5 { background: linear-gradient(180deg, var(--color-klasse5), var(--color-surface)); }
-        .column-header.klasse6 { background: linear-gradient(180deg, var(--color-klasse6), var(--color-surface)); }
-        .column-header.klasse7 { background: linear-gradient(180deg, var(--color-klasse7), var(--color-surface)); }
-        .column-header.klasse8 { background: linear-gradient(180deg, var(--color-klasse8), var(--color-surface)); }
-        .column-header.klasse9 { background: linear-gradient(180deg, var(--color-klasse9), var(--color-surface)); }
-        .column-header.klasse10 { background: linear-gradient(180deg, var(--color-klasse10), var(--color-surface)); }
-        .column-header.oberstufe { background: linear-gradient(180deg, var(--color-oberstufe), var(--color-surface)); }
+        .tab:hover {
+            background: var(--color-surface-hover);
+            color: var(--color-text);
+        }
 
-        /* Content Cells */
-        .cell {
-            background: var(--color-surface);
-            padding: 1.25rem;
-            min-height: 140px;
+        .tab.active {
+            background: var(--color-accent);
+            border-color: var(--color-accent);
+            color: #000;
+        }
+
+        /* Content Cards */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .cards {
             display: flex;
             flex-direction: column;
-            transition: all 0.3s ease;
-            position: relative;
+            gap: 1rem;
         }
 
-        .cell.empty {
-            background: rgba(26, 26, 26, 0.5);
+        .card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            padding: 1.25rem;
+            transition: all 0.2s ease;
         }
 
-        .cell.has-pdf {
+        .card.has-pdf {
             cursor: pointer;
+            position: relative;
+            padding-right: 3rem;
         }
 
-        .cell.has-pdf:hover {
+        .card.has-pdf:hover {
             background: var(--color-surface-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-            z-index: 10;
+            border-color: var(--color-accent);
+            transform: translateX(4px);
         }
 
-        .cell.has-pdf:hover .cell-title {
-            color: var(--color-accent);
-        }
-
-        .cell.has-pdf::after {
+        .card.has-pdf::after {
             content: '';
             position: absolute;
-            top: 0.75rem;
-            right: 0.75rem;
-            width: 20px;
-            height: 20px;
+            top: 50%;
+            right: 1rem;
+            transform: translateY(-50%);
+            width: 24px;
+            height: 24px;
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23c9a227'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'/%3E%3C/svg%3E");
             background-size: contain;
-            opacity: 0.6;
-            transition: opacity 0.3s ease;
+            opacity: 0.7;
         }
 
-        .cell.has-pdf:hover::after {
+        .card.has-pdf:hover::after {
             opacity: 1;
         }
 
-        .cell-title {
+        .card-title {
             font-family: var(--font-display);
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             font-weight: 600;
             color: var(--color-text);
-            margin-bottom: 0.5rem;
-            transition: color 0.3s ease;
-            line-height: 1.3;
+            margin-bottom: 0.25rem;
         }
 
-        .cell-content {
-            font-size: 0.85rem;
+        .card.has-pdf:hover .card-title {
+            color: var(--color-accent);
+        }
+
+        .card-content {
+            font-size: 0.9rem;
             color: var(--color-text-muted);
             line-height: 1.5;
         }
 
-        .cell-content em {
+        .card-content em {
             font-style: italic;
             color: var(--color-text);
         }
-
-        /* Row Separator Visual */
-        .row-1 { border-top: none; }
-        .row-2 { border-top: 1px solid var(--color-border); }
-        .row-3 { border-top: 1px solid var(--color-border); }
 
         /* Legend */
         .legend {
@@ -224,264 +226,366 @@
         }
 
         .legend-icon {
-            width: 24px;
-            height: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .legend-icon.pdf {
+            width: 20px;
+            height: 20px;
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23c9a227'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'/%3E%3C/svg%3E");
             background-size: contain;
         }
 
-        /* Scroll wrapper for mobile */
-        .grid-wrapper {
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            border-radius: 12px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-        }
-
-        /* Hide scrollbar but keep functionality */
-        .grid-wrapper::-webkit-scrollbar {
-            height: 8px;
-        }
-
-        .grid-wrapper::-webkit-scrollbar-track {
-            background: var(--color-surface);
-            border-radius: 4px;
-        }
-
-        .grid-wrapper::-webkit-scrollbar-thumb {
-            background: var(--color-accent);
-            border-radius: 4px;
-        }
-
-        /* Responsive */
-        @media (max-width: 1200px) {
-            .curriculum-grid {
-                grid-template-columns: repeat(7, minmax(180px, 1fr));
-                min-width: max-content;
+        /* Desktop: Grid Layout */
+        @media (min-width: 900px) {
+            .mobile-view {
+                display: none;
             }
 
-            .cell {
-                min-width: 180px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 1rem;
+            .desktop-view {
+                display: block;
             }
 
             .curriculum-grid {
-                grid-template-columns: repeat(7, minmax(160px, 1fr));
-            }
-
-            .cell {
-                min-height: 120px;
-                min-width: 160px;
-                padding: 1rem;
+                display: grid;
+                grid-template-columns: repeat(7, 1fr);
+                gap: 1px;
+                background: var(--color-border);
+                border-radius: 12px;
+                overflow: hidden;
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
             }
 
             .column-header {
-                min-width: 160px;
-                padding: 1rem 0.75rem;
-                font-size: 0.85rem;
+                background: var(--color-surface);
+                padding: 1.25rem 1rem;
+                text-align: center;
+                font-weight: 600;
+                font-size: 0.9rem;
+                letter-spacing: 0.05em;
+                text-transform: uppercase;
+                border-bottom: 2px solid var(--color-accent);
             }
-        }
 
-        /* Scroll hint for mobile */
-        .scroll-hint {
-            display: none;
-            text-align: center;
-            color: var(--color-text-muted);
-            font-size: 0.85rem;
-            margin-bottom: 1rem;
-            gap: 0.5rem;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .scroll-hint svg {
-            width: 20px;
-            height: 20px;
-            animation: swipe 1.5s ease-in-out infinite;
-        }
-
-        @keyframes swipe {
-            0%, 100% { transform: translateX(-5px); opacity: 0.5; }
-            50% { transform: translateX(5px); opacity: 1; }
-        }
-
-        @media (max-width: 1200px) {
-            .scroll-hint {
+            .cell {
+                background: var(--color-surface);
+                padding: 1.25rem;
+                min-height: 130px;
                 display: flex;
+                flex-direction: column;
+                transition: all 0.3s ease;
+                position: relative;
             }
-        }
 
-        /* Animation on load */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
+            .cell.empty {
+                background: rgba(26, 26, 26, 0.5);
             }
-            to {
+
+            .cell.has-pdf {
+                cursor: pointer;
+            }
+
+            .cell.has-pdf:hover {
+                background: var(--color-surface-hover);
+                transform: translateY(-2px);
+                box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+                z-index: 10;
+            }
+
+            .cell.has-pdf:hover .cell-title {
+                color: var(--color-accent);
+            }
+
+            .cell.has-pdf::after {
+                content: '';
+                position: absolute;
+                top: 0.75rem;
+                right: 0.75rem;
+                width: 18px;
+                height: 18px;
+                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23c9a227'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'/%3E%3C/svg%3E");
+                background-size: contain;
+                opacity: 0.6;
+            }
+
+            .cell.has-pdf:hover::after {
                 opacity: 1;
-                transform: translateY(0);
+            }
+
+            .cell-title {
+                font-family: var(--font-display);
+                font-size: 1rem;
+                font-weight: 600;
+                color: var(--color-text);
+                margin-bottom: 0.5rem;
+                transition: color 0.3s ease;
+                line-height: 1.3;
+            }
+
+            .cell-content {
+                font-size: 0.8rem;
+                color: var(--color-text-muted);
+                line-height: 1.5;
+            }
+
+            .cell-content em {
+                font-style: italic;
+                color: var(--color-text);
             }
         }
 
-        .cell {
-            animation: fadeInUp 0.5s ease forwards;
-            opacity: 0;
-        }
+        @media (max-width: 899px) {
+            .desktop-view {
+                display: none;
+            }
 
-        .cell:nth-child(1) { animation-delay: 0.05s; }
-        .cell:nth-child(2) { animation-delay: 0.1s; }
-        .cell:nth-child(3) { animation-delay: 0.15s; }
-        .cell:nth-child(4) { animation-delay: 0.2s; }
-        .cell:nth-child(5) { animation-delay: 0.25s; }
-        .cell:nth-child(6) { animation-delay: 0.3s; }
-        .cell:nth-child(7) { animation-delay: 0.35s; }
-        .cell:nth-child(8) { animation-delay: 0.4s; }
-        .cell:nth-child(9) { animation-delay: 0.45s; }
-        .cell:nth-child(10) { animation-delay: 0.5s; }
-        .cell:nth-child(11) { animation-delay: 0.55s; }
-        .cell:nth-child(12) { animation-delay: 0.6s; }
-        .cell:nth-child(13) { animation-delay: 0.65s; }
-        .cell:nth-child(14) { animation-delay: 0.7s; }
-        .cell:nth-child(15) { animation-delay: 0.75s; }
-        .cell:nth-child(16) { animation-delay: 0.8s; }
-        .cell:nth-child(17) { animation-delay: 0.85s; }
-        .cell:nth-child(18) { animation-delay: 0.9s; }
-        .cell:nth-child(19) { animation-delay: 0.95s; }
-        .cell:nth-child(20) { animation-delay: 1s; }
-        .cell:nth-child(21) { animation-delay: 1.05s; }
+            .mobile-view {
+                display: block;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Das <span>Mittelalter</span> im gymnasialen Deutschunterricht</h1>
+            <h1>Das <span>Mittelalter</span> im Deutschunterricht</h1>
             <p class="subtitle">Baden-Württemberg · Übersicht nach Klassenstufen</p>
         </header>
 
-        <div class="scroll-hint">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
-            </svg>
-            <span>Wischen um mehr zu sehen</span>
+        <!-- MOBILE VIEW: Tabs -->
+        <div class="mobile-view">
+            <div class="tabs">
+                <button class="tab active" data-tab="klasse5">Klasse 5</button>
+                <button class="tab" data-tab="klasse6">Klasse 6</button>
+                <button class="tab" data-tab="klasse7">Klasse 7</button>
+                <button class="tab" data-tab="klasse8">Klasse 8</button>
+                <button class="tab" data-tab="klasse9">Klasse 9</button>
+                <button class="tab" data-tab="klasse10">Klasse 10</button>
+                <button class="tab" data-tab="oberstufe">Oberstufe</button>
+            </div>
+
+            <!-- Klasse 5 -->
+            <div class="tab-content active" id="klasse5">
+                <div class="cards">
+                    <div class="card" data-pdf="pdfs/klasse5-dunkles-ma.pdf">
+                        <div class="card-title">Dunkles MA, finstere Ritter</div>
+                        <div class="card-content">Sachtexte unterschiedlicher medialer Form untersuchen</div>
+                    </div>
+                    <div class="card has-pdf" data-pdf="pdfs/klasse5-maerchentexte.pdf" onclick="openPdf(this)">
+                        <div class="card-title">Märchentexte</div>
+                        <div class="card-content">untersuchen & Märchen schreiben (u.a. ahd. <em>Beschwörungsformeln</em>)</div>
+                    </div>
+                    <div class="card" data-pdf="pdfs/klasse5-jugendbuch.pdf">
+                        <div class="card-title">Jugendbuch</div>
+                        <div class="card-content">mediale Zugänge (auch <em>Fantasy</em>)</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Klasse 6 -->
+            <div class="tab-content" id="klasse6">
+                <div class="cards">
+                    <div class="card" data-pdf="pdfs/klasse6-fabeln.pdf">
+                        <div class="card-title">Fabeln</div>
+                        <div class="card-content">lesen und gestalten</div>
+                    </div>
+                    <div class="card" data-pdf="pdfs/klasse6-volkssagen.pdf">
+                        <div class="card-title">Volks- und Heldensagen</div>
+                        <div class="card-content">szenisches Erschließen, Vorstellung Helden früher/heute</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Klasse 7 -->
+            <div class="tab-content" id="klasse7">
+                <div class="cards">
+                    <div class="card" data-pdf="pdfs/klasse7-jugendliteratur.pdf">
+                        <div class="card-title">Jugendliteratur – Charakterisierung</div>
+                        <div class="card-content">Schwerpunkt Prosa, Protagonist (z.B. <em>Parzival</em> o. <em>Iwein Löwenritter</em>)</div>
+                    </div>
+                    <div class="card" data-pdf="pdfs/klasse7-dichterleben.pdf">
+                        <div class="card-title">Dichterleben</div>
+                        <div class="card-content">Lebens eines Schriftstellers mit regionalem Bezug, Biographie, Entstehung, Epoche</div>
+                    </div>
+                    <div class="card" data-pdf="pdfs/klasse7-hoerprodukte.pdf">
+                        <div class="card-title">Zuhören</div>
+                        <div class="card-content">Hörprodukte gestalten (Bsp. <em>Engelhard</em>)</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Klasse 8 -->
+            <div class="tab-content" id="klasse8">
+                <div class="cards">
+                    <div class="card" data-pdf="pdfs/klasse8-lyrik.pdf">
+                        <div class="card-title">Lyrik</div>
+                        <div class="card-content"><em>Waldgedichte</em>, u.a. <em>Herr der Ringe</em> (Ents)</div>
+                    </div>
+                    <div class="card has-pdf" data-pdf="pdfs/klasse8-ue-mittelalter.pdf" onclick="openPdf(this)">
+                        <div class="card-title">UE Mittelalter</div>
+                        <div class="card-content">Miniaturen, Vorstellungen vs. Vorwissen, Medien MA, Nibelungenlied, Reflexion & Rezeption</div>
+                    </div>
+                    <div class="card" data-pdf="pdfs/klasse8-graphic-novel.pdf">
+                        <div class="card-title">evtl. auch Graphic Novel</div>
+                        <div class="card-content">(Bsp. <em>Sir Gawain und der Grüne Ritter</em>)</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Klasse 9 -->
+            <div class="tab-content" id="klasse9">
+                <div class="cards">
+                    <div class="card" data-pdf="pdfs/klasse9-zeitung.pdf">
+                        <div class="card-title">Zeitung</div>
+                        <div class="card-content">Medienwandel/-verhalten</div>
+                    </div>
+                    <div class="card" data-pdf="pdfs/klasse9-barock.pdf">
+                        <div class="card-title">Barock</div>
+                        <div class="card-content">Liebeslyrik, Flugblatt, aspektorientierter Vergleich, Epochenmodell</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Klasse 10 -->
+            <div class="tab-content" id="klasse10">
+                <div class="cards">
+                    <div class="card" data-pdf="pdfs/klasse10-literaturverfilmung.pdf">
+                        <div class="card-title">Literaturverfilmung</div>
+                        <div class="card-content">Vergleich, Gestaltungsmittel, Darstellungsleistung</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Oberstufe -->
+            <div class="tab-content" id="oberstufe">
+                <div class="cards">
+                    <div class="card" data-pdf="pdfs/oberstufe-macht-der-sprache.pdf">
+                        <div class="card-title">Macht der Sprache</div>
+                        <div class="card-content">Sprachwandel, Lehnwörter</div>
+                    </div>
+                    <div class="card" data-pdf="pdfs/oberstufe-parzival.pdf">
+                        <div class="card-title">Lukas Bärfuss: <em>Parzival</em></div>
+                        <div class="card-content"></div>
+                    </div>
+                    <div class="card" data-pdf="pdfs/oberstufe-lyrik-diachron.pdf">
+                        <div class="card-title">Lyrik diachron</div>
+                        <div class="card-content">(z.B. Liebeslyrik)</div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="grid-wrapper">
-        <div class="curriculum-grid">
-            <!-- Headers -->
-            <div class="column-header klasse5">Klasse 5</div>
-            <div class="column-header klasse6">Klasse 6</div>
-            <div class="column-header klasse7">Klasse 7</div>
-            <div class="column-header klasse8">Klasse 8</div>
-            <div class="column-header klasse9">Klasse 9</div>
-            <div class="column-header klasse10">Klasse 10</div>
-            <div class="column-header oberstufe">Oberstufe</div>
+        <!-- DESKTOP VIEW: Grid -->
+        <div class="desktop-view">
+            <div class="curriculum-grid">
+                <!-- Headers -->
+                <div class="column-header">Klasse 5</div>
+                <div class="column-header">Klasse 6</div>
+                <div class="column-header">Klasse 7</div>
+                <div class="column-header">Klasse 8</div>
+                <div class="column-header">Klasse 9</div>
+                <div class="column-header">Klasse 10</div>
+                <div class="column-header">Oberstufe</div>
 
-            <!-- Row 1 -->
-            <div class="cell row-1" data-pdf="pdfs/klasse5-dunkles-ma.pdf" onclick="openPdf(this)">
-                <div class="cell-title">Dunkles MA, finstere Ritter</div>
-                <div class="cell-content">Sachtexte unterschiedlicher medialer Form untersuchen</div>
-            </div>
-            <div class="cell row-1" data-pdf="pdfs/klasse6-fabeln.pdf" onclick="openPdf(this)">
-                <div class="cell-title">Fabeln</div>
-                <div class="cell-content">lesen und gestalten</div>
-            </div>
-            <div class="cell row-1" data-pdf="pdfs/klasse7-jugendliteratur.pdf" onclick="openPdf(this)">
-                <div class="cell-title">Jugendliteratur – Charakterisierung</div>
-                <div class="cell-content">Schwerpunkt Prosa, Protagonist (z.B. <em>Parzival</em> o. <em>Iwein Löwenritter</em>)</div>
-            </div>
-            <div class="cell row-1" data-pdf="pdfs/klasse8-lyrik.pdf" onclick="openPdf(this)">
-                <div class="cell-title">Lyrik</div>
-                <div class="cell-content"><em>Waldgedichte</em>, u.a. <em>Herr der Ringe</em> (Ents)</div>
-            </div>
-            <div class="cell row-1" data-pdf="pdfs/klasse9-zeitung.pdf" onclick="openPdf(this)">
-                <div class="cell-title">Zeitung</div>
-                <div class="cell-content">Medienwandel/-verhalten</div>
-            </div>
-            <div class="cell row-1" data-pdf="pdfs/klasse10-literaturverfilmung.pdf" onclick="openPdf(this)">
-                <div class="cell-title">Literaturverfilmung</div>
-                <div class="cell-content">Vergleich, Gestaltungsmittel, Darstellungsleistung</div>
-            </div>
-            <div class="cell row-1" data-pdf="pdfs/oberstufe-macht-der-sprache.pdf" onclick="openPdf(this)">
-                <div class="cell-title">Macht der Sprache</div>
-                <div class="cell-content">Sprachwandel, Lehnwörter</div>
-            </div>
+                <!-- Row 1 -->
+                <div class="cell" data-pdf="pdfs/klasse5-dunkles-ma.pdf">
+                    <div class="cell-title">Dunkles MA, finstere Ritter</div>
+                    <div class="cell-content">Sachtexte unterschiedlicher medialer Form untersuchen</div>
+                </div>
+                <div class="cell" data-pdf="pdfs/klasse6-fabeln.pdf">
+                    <div class="cell-title">Fabeln</div>
+                    <div class="cell-content">lesen und gestalten</div>
+                </div>
+                <div class="cell" data-pdf="pdfs/klasse7-jugendliteratur.pdf">
+                    <div class="cell-title">Jugendliteratur – Charakterisierung</div>
+                    <div class="cell-content">Schwerpunkt Prosa, Protagonist (z.B. <em>Parzival</em> o. <em>Iwein Löwenritter</em>)</div>
+                </div>
+                <div class="cell" data-pdf="pdfs/klasse8-lyrik.pdf">
+                    <div class="cell-title">Lyrik</div>
+                    <div class="cell-content"><em>Waldgedichte</em>, u.a. <em>Herr der Ringe</em> (Ents)</div>
+                </div>
+                <div class="cell" data-pdf="pdfs/klasse9-zeitung.pdf">
+                    <div class="cell-title">Zeitung</div>
+                    <div class="cell-content">Medienwandel/-verhalten</div>
+                </div>
+                <div class="cell" data-pdf="pdfs/klasse10-literaturverfilmung.pdf">
+                    <div class="cell-title">Literaturverfilmung</div>
+                    <div class="cell-content">Vergleich, Gestaltungsmittel, Darstellungsleistung</div>
+                </div>
+                <div class="cell" data-pdf="pdfs/oberstufe-macht-der-sprache.pdf">
+                    <div class="cell-title">Macht der Sprache</div>
+                    <div class="cell-content">Sprachwandel, Lehnwörter</div>
+                </div>
 
-            <!-- Row 2 -->
-            <div class="cell row-2 has-pdf" data-pdf="pdfs/klasse5-maerchentexte.pdf" onclick="openPdf(this)">
-                <div class="cell-title">Märchentexte</div>
-                <div class="cell-content">untersuchen & Märchen schreiben (u.a. ahd. <em>Beschwörungsformeln</em>)</div>
-            </div>
-            <div class="cell row-2" data-pdf="pdfs/klasse6-volkssagen.pdf" onclick="openPdf(this)">
-                <div class="cell-title">Volks- und Heldensagen</div>
-                <div class="cell-content">szenisches Erschließen, Vorstellung Helden früher/heute</div>
-            </div>
-            <div class="cell row-2" data-pdf="pdfs/klasse7-dichterleben.pdf" onclick="openPdf(this)">
-                <div class="cell-title">Dichterleben</div>
-                <div class="cell-content">Lebens eines Schriftstellers mit regionalem Bezug, Biographie, Entstehung, Epoche</div>
-            </div>
-            <div class="cell row-2" data-pdf="pdfs/klasse8-ue-mittelalter.pdf" onclick="openPdf(this)">
-                <div class="cell-title">UE Mittelalter</div>
-                <div class="cell-content">Miniaturen, Vorstellungen vs. Vorwissen, Medien MA, Nibelungenlied, Reflexion & Rezeption</div>
-            </div>
-            <div class="cell row-2" data-pdf="pdfs/klasse9-barock.pdf" onclick="openPdf(this)">
-                <div class="cell-title">Barock</div>
-                <div class="cell-content">Liebeslyrik, Flugblatt, aspektorientierter Vergleich, Epochenmodell</div>
-            </div>
-            <div class="cell row-2 empty"></div>
-            <div class="cell row-2" data-pdf="pdfs/oberstufe-parzival.pdf" onclick="openPdf(this)">
-                <div class="cell-title">Lukas Bärfuss: <em>Parzival</em></div>
-                <div class="cell-content"></div>
-            </div>
+                <!-- Row 2 -->
+                <div class="cell has-pdf" data-pdf="pdfs/klasse5-maerchentexte.pdf" onclick="openPdf(this)">
+                    <div class="cell-title">Märchentexte</div>
+                    <div class="cell-content">untersuchen & Märchen schreiben (u.a. ahd. <em>Beschwörungsformeln</em>)</div>
+                </div>
+                <div class="cell" data-pdf="pdfs/klasse6-volkssagen.pdf">
+                    <div class="cell-title">Volks- und Heldensagen</div>
+                    <div class="cell-content">szenisches Erschließen, Vorstellung Helden früher/heute</div>
+                </div>
+                <div class="cell" data-pdf="pdfs/klasse7-dichterleben.pdf">
+                    <div class="cell-title">Dichterleben</div>
+                    <div class="cell-content">Lebens eines Schriftstellers mit regionalem Bezug, Biographie, Entstehung, Epoche</div>
+                </div>
+                <div class="cell has-pdf" data-pdf="pdfs/klasse8-ue-mittelalter.pdf" onclick="openPdf(this)">
+                    <div class="cell-title">UE Mittelalter</div>
+                    <div class="cell-content">Miniaturen, Vorstellungen vs. Vorwissen, Medien MA, Nibelungenlied, Reflexion & Rezeption</div>
+                </div>
+                <div class="cell" data-pdf="pdfs/klasse9-barock.pdf">
+                    <div class="cell-title">Barock</div>
+                    <div class="cell-content">Liebeslyrik, Flugblatt, aspektorientierter Vergleich, Epochenmodell</div>
+                </div>
+                <div class="cell empty"></div>
+                <div class="cell" data-pdf="pdfs/oberstufe-parzival.pdf">
+                    <div class="cell-title">Lukas Bärfuss: <em>Parzival</em></div>
+                    <div class="cell-content"></div>
+                </div>
 
-            <!-- Row 3 -->
-            <div class="cell row-3" data-pdf="pdfs/klasse5-jugendbuch.pdf" onclick="openPdf(this)">
-                <div class="cell-title">Jugendbuch</div>
-                <div class="cell-content">mediale Zugänge (auch <em>Fantasy</em>)</div>
+                <!-- Row 3 -->
+                <div class="cell" data-pdf="pdfs/klasse5-jugendbuch.pdf">
+                    <div class="cell-title">Jugendbuch</div>
+                    <div class="cell-content">mediale Zugänge (auch <em>Fantasy</em>)</div>
+                </div>
+                <div class="cell empty"></div>
+                <div class="cell" data-pdf="pdfs/klasse7-hoerprodukte.pdf">
+                    <div class="cell-title">Zuhören</div>
+                    <div class="cell-content">Hörprodukte gestalten (Bsp. <em>Engelhard</em>)</div>
+                </div>
+                <div class="cell" data-pdf="pdfs/klasse8-graphic-novel.pdf">
+                    <div class="cell-title">evtl. auch Graphic Novel</div>
+                    <div class="cell-content">(Bsp. <em>Sir Gawain und der Grüne Ritter</em>)</div>
+                </div>
+                <div class="cell empty"></div>
+                <div class="cell empty"></div>
+                <div class="cell" data-pdf="pdfs/oberstufe-lyrik-diachron.pdf">
+                    <div class="cell-title">Lyrik diachron</div>
+                    <div class="cell-content">(z.B. Liebeslyrik)</div>
+                </div>
             </div>
-            <div class="cell row-3 empty"></div>
-            <div class="cell row-3" data-pdf="pdfs/klasse7-hoerprodukte.pdf" onclick="openPdf(this)">
-                <div class="cell-title">Zuhören</div>
-                <div class="cell-content">Hörprodukte gestalten (Bsp. <em>Engelhard</em>)</div>
-            </div>
-            <div class="cell row-3" data-pdf="pdfs/klasse8-graphic-novel.pdf" onclick="openPdf(this)">
-                <div class="cell-title">evtl. auch Graphic Novel</div>
-                <div class="cell-content">(Bsp. <em>Sir Gawain und der Grüne Ritter</em>)</div>
-            </div>
-            <div class="cell row-3 empty"></div>
-            <div class="cell row-3 empty"></div>
-            <div class="cell row-3" data-pdf="pdfs/oberstufe-lyrik-diachron.pdf" onclick="openPdf(this)">
-                <div class="cell-title">Lyrik diachron</div>
-                <div class="cell-content">(z.B. Liebeslyrik)</div>
-            </div>
-        </div>
         </div>
 
         <div class="legend">
             <div class="legend-item">
-                <div class="legend-icon pdf"></div>
-                <span>Klicken um PDF zu öffnen</span>
+                <div class="legend-icon"></div>
+                <span>Antippen um PDF zu öffnen</span>
             </div>
         </div>
     </div>
 
     <script>
-        // ============================================
-        // KONFIGURATION: Hier festlegen welche PDFs existieren
-        // ============================================
-        // Setze 'has-pdf' als Klasse bei den Zellen, die eine PDF haben
-        // Oder entferne data-pdf und onclick bei Zellen ohne PDF
-        
+        // Tab switching
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active from all tabs and contents
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                // Add active to clicked tab and corresponding content
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.tab).classList.add('active');
+            });
+        });
+
+        // PDF opening
         function openPdf(element) {
             const pdfPath = element.dataset.pdf;
             if (pdfPath && element.classList.contains('has-pdf')) {
@@ -489,13 +593,9 @@
             }
         }
 
-        // Initialisierung: Entferne Klick-Funktionalität von Zellen ohne has-pdf Klasse
-        document.addEventListener('DOMContentLoaded', function() {
-            const cells = document.querySelectorAll('.cell:not(.has-pdf)');
-            cells.forEach(cell => {
-                cell.style.cursor = 'default';
-                cell.removeAttribute('onclick');
-            });
+        // Add click handlers to all has-pdf elements
+        document.querySelectorAll('.has-pdf').forEach(el => {
+            el.addEventListener('click', () => openPdf(el));
         });
     </script>
 </body>
