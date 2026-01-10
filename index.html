@@ -184,6 +184,39 @@
             opacity: 1;
         }
 
+        .card.has-url {
+            cursor: pointer;
+            position: relative;
+            padding-right: 3rem;
+        }
+
+        .card.has-url:hover {
+            background: var(--color-surface-hover);
+            border-color: var(--color-accent);
+            transform: translateX(4px);
+        }
+
+        .card.has-url::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: 1rem;
+            transform: translateY(-50%);
+            width: 24px;
+            height: 24px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23c9a227'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14'/%3E%3C/svg%3E");
+            background-size: contain;
+            opacity: 0.7;
+        }
+
+        .card.has-url:hover::after {
+            opacity: 1;
+        }
+
+        .card.has-url:hover .card-title {
+            color: var(--color-accent);
+        }
+
         .card-title {
             font-family: var(--font-display);
             font-size: 1.1rem;
@@ -308,6 +341,37 @@
                 opacity: 1;
             }
 
+            .cell.has-url {
+                cursor: pointer;
+            }
+
+            .cell.has-url:hover {
+                background: var(--color-surface-hover);
+                transform: translateY(-2px);
+                box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+                z-index: 10;
+            }
+
+            .cell.has-url:hover .cell-title {
+                color: var(--color-accent);
+            }
+
+            .cell.has-url::after {
+                content: '';
+                position: absolute;
+                top: 0.75rem;
+                right: 0.75rem;
+                width: 18px;
+                height: 18px;
+                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23c9a227'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14'/%3E%3C/svg%3E");
+                background-size: contain;
+                opacity: 0.6;
+            }
+
+            .cell.has-url:hover::after {
+                opacity: 1;
+            }
+
             .cell-title {
                 font-family: var(--font-display);
                 font-size: 1rem;
@@ -371,7 +435,7 @@
                         <div class="card-title">Märchentexte</div>
                         <div class="card-content">untersuchen & Märchen schreiben (u.a. ahd. <em>Beschwörungsformeln</em>)</div>
                     </div>
-                    <div class="card" data-pdf="pdfs/klasse5-jugendbuch.pdf">
+                    <div class="card has-url" data-url="https://www.eragon.de/" onclick="openUrl(this)">
                         <div class="card-title">Jugendbuch</div>
                         <div class="card-content">mediale Zugänge (auch <em>Fantasy</em>)</div>
                     </div>
@@ -395,11 +459,11 @@
             <!-- Klasse 7 -->
             <div class="tab-content" id="klasse7">
                 <div class="cards">
-                    <div class="card" data-pdf="">
+                    <div class="card has-url" data-url="https://www.schule-bw.de/themen-und-impulse/ideenpool-lesen/suchmaschine/suche_buecher/bdm_2017/bdm_17_12_2" onclick="openUrl(this)">
                         <div class="card-title">Jugendliteratur – Charakterisierung</div>
                         <div class="card-content">Schwerpunkt Prosa, Protagonist (z.B. <em>Parzival</em> o. <em>Iwein Löwenritter</em>)</div>
                     </div>
-                    <div class="card" data-pdf="">
+                    <div class="card has-url" data-url="http://www.goethezeitportal.de/wissen/illustrationen/joseph-victor-von-scheffel/ekkehard.html" onclick="openUrl(this)">
                         <div class="card-title">Dichterleben</div>
                         <div class="card-content">Lebens eines Schriftstellers mit regionalem Bezug, Biographie, Entstehung, Epoche</div>
                     </div>
@@ -421,7 +485,7 @@
                         <div class="card-title">UE Mittelalter</div>
                         <div class="card-content">Miniaturen, Vorstellungen vs. Vorwissen, Medien MA, Nibelungenlied, Reflexion & Rezeption</div>
                     </div>
-                    <div class="card" data-pdf="pdfs/klasse8-graphic-novel.pdf">
+                    <div class="card has-url" data-url="https://www.comic-base-berlin.de/product_info.php?products_id=50002" onclick="openUrl(this)">
                         <div class="card-title">evtl. auch Graphic Novel</div>
                         <div class="card-content">(Bsp. <em>Sir Gawain und der Grüne Ritter</em>)</div>
                     </div>
@@ -435,7 +499,7 @@
                         <div class="card-title">Zeitung</div>
                         <div class="card-content">Medienwandel/-verhalten</div>
                     </div>
-                    <div class="card" data-pdf="/Users/berkanbozkurt/Projekte/UE/PDFs/Kl9_Minnelyrik.pdf">
+                    <div class="card has-url" data-url="https://lehrerfortbildung-bw.de/u_sprachlit/deutsch/gym/bp2016/fb13/2_alle/baerfuss_parzival_2010/" onclick="openUrl(this)">
                         <div class="card-title">Barock</div>
                         <div class="card-content">Liebeslyrik, Flugblatt, aspektorientierter Vergleich, Epochenmodell</div>
                     </div>
@@ -459,7 +523,7 @@
                         <div class="card-title">Macht der Sprache</div>
                         <div class="card-content">Sprachwandel, Lehnwörter</div>
                     </div>
-                    <div class="card" data-pdf="pdfs/oberstufe-parzival.pdf">
+                    <div class="card" data-url="">
                         <div class="card-title">Lukas Bärfuss: <em>Parzival</em></div>
                         <div class="card-content"></div>
                     </div>
@@ -492,7 +556,7 @@
                     <div class="cell-title">Fabeln</div>
                     <div class="cell-content">lesen und gestalten</div>
                 </div>
-                <div class="cell" data-pdf="">
+                <div class="cell has-url" data-url="https://www.schule-bw.de/themen-und-impulse/ideenpool-lesen/suchmaschine/suche_buecher/bdm_2017/bdm_17_12_2" onclick="openUrl(this)">
                     <div class="cell-title">Jugendliteratur – Charakterisierung</div>
                     <div class="cell-content">Schwerpunkt Prosa, Protagonist (z.B. <em>Parzival</em> o. <em>Iwein Löwenritter</em>)</div>
                 </div>
@@ -522,7 +586,7 @@
                     <div class="cell-title">Volks- und Heldensagen</div>
                     <div class="cell-content">szenisches Erschließen, Vorstellung Helden früher/heute</div>
                 </div>
-                <div class="cell" data-pdf="">
+                <div class="cell has-url" data-url="http://www.goethezeitportal.de/wissen/illustrationen/joseph-victor-von-scheffel/ekkehard.html" onclick="openUrl(this)">
                     <div class="cell-title">Dichterleben</div>
                     <div class="cell-content">Lebens eines Schriftstellers mit regionalem Bezug, Biographie, Entstehung, Epoche</div>
                 </div>
@@ -530,15 +594,18 @@
                     <div class="cell-title">UE Mittelalter</div>
                     <div class="cell-content">Miniaturen, Vorstellungen vs. Vorwissen, Medien MA, Nibelungenlied, Reflexion & Rezeption</div>
                 </div>
+                <div class="cell has-url" data-url="https://lehrerfortbildung-bw.de/u_sprachlit/deutsch/gym/bp2016/fb13/2_alle/baerfuss_parzival_2010/" onclick="openUrl(this)">
+                    <div class="cell-title">Barock</div>
+                    <div class="cell-content">Liebeslyrik, Flugblatt, aspektorientierter Vergleich, Epochenmodell</div>
+                </div>
                 <div class="cell empty"></div>
-                <div class="cell empty"></div>
-                <div class="cell" data-pdf="">
+                <div class="cell" data-url="">
                     <div class="cell-title">Lukas Bärfuss: <em>Parzival</em></div>
                     <div class="cell-content"></div>
                 </div>
 
                 <!-- Row 3 -->
-                <div class="cell" data-pdf="">
+                <div class="cell has-url" data-url="https://www.eragon.de/" onclick="openUrl(this)">
                     <div class="cell-title">Jugendbuch</div>
                     <div class="cell-content">mediale Zugänge (auch <em>Fantasy</em>)</div>
                 </div>
@@ -547,7 +614,7 @@
                     <div class="cell-title">Zuhören</div>
                     <div class="cell-content">Hörprodukte gestalten (Bsp. <em>Engelhard</em>)</div>
                 </div>
-                <div class="cell" data-pdf="">
+                <div class="cell has-url" data-url="https://www.comic-base-berlin.de/product_info.php?products_id=50002" onclick="openUrl(this)">
                     <div class="cell-title">evtl. auch Graphic Novel</div>
                     <div class="cell-content">(Bsp. <em>Sir Gawain und der Grüne Ritter</em>)</div>
                 </div>
@@ -582,7 +649,7 @@
             });
         });
 
-        // PDF opening
+        // PDF and URL opening
         function openPdf(element) {
             const pdfPath = element.dataset.pdf;
             if (pdfPath && element.classList.contains('has-pdf')) {
@@ -590,9 +657,21 @@
             }
         }
 
+        function openUrl(element) {
+            const url = element.dataset.url;
+            if (url && element.classList.contains('has-url')) {
+                window.open(url, '_blank');
+            }
+        }
+
         // Add click handlers to all has-pdf elements
         document.querySelectorAll('.has-pdf').forEach(el => {
             el.addEventListener('click', () => openPdf(el));
+        });
+
+        // Add click handlers to all has-url elements
+        document.querySelectorAll('.has-url').forEach(el => {
+            el.addEventListener('click', () => openUrl(el));
         });
     </script>
 </body>
